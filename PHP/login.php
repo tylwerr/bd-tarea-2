@@ -2,19 +2,26 @@
 include_once("config.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
-    $nombre_usuario = $_POST['nombre_usuario'];
+    $email = $_POST['email'];
     $contrasena = $_POST['contrasena'];
+    $nombre_usuario = $_POST['nombre_usuario'];
 
     
     $conn = Cconexion::ConexionBD();
-    $sql = "SELECT * FROM usuarios WHERE nombre_usuario = ? AND contrasena = ?";
+    $sql = "UPDATE usuarios SET ultima_sesion = NOW() WHERE email = ? AND contrasena = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$nombre_usuario, $contrasena]);
+    $stmt->execute([$email, $contrasena]);
 
     if ($stmt->rowCount() == 1) {
+        $row = $stmt->fetch();
+        $nombre_usuario = $row['nombre_usuario'];
         session_start();
-        $_SESSION['nombre_usuario'] = $nombre_usuario;
-        header("location: principal.php"); 
+        $_SESSION['email'] = $email; 
+        $_SESSION['nombre_usuario'] = $nombre_usuario; 
+        $updateSql = "UPDATE usuarios SET ultima_sesion = NOW() WHERE email = ?";
+        $updateStmt = $conn->prepare($updateSql);
+        $updateStmt->execute([$email]);
+        header("location: principal.php");
     } else {
         echo "Credenciales incorrectas. Inténtalo de nuevo.";
     }
@@ -44,8 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <form class="col-4 p-5" method="POST" action="login.php">
     <h3 class="text-center text-secondary">Iniciar Sesión</h3>
     <div class="mb-3">
-        <label for="nombre_usuario" class="form-label">Nombre</label>
-        <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required>
+        <label for="email" class="form-label">Email</label>
+        <input type="text" class="form-control" id="email" name="email" required>
     </div>
     <div class="mb-3">
         <label for="contrasena" class="form-label">Contraseña</label>

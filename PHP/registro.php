@@ -17,7 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("location: registro_exitoso.php"); 
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

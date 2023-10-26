@@ -8,7 +8,6 @@ class Cconexion{
 
         try {
             $conn = new PDO ("mysql:host=$host;dbname=$dbname",$username,$pasword);
-            echo ("conexion correcta");
         } catch (PDOException $exp) {
             echo ("No se logro conectar correctamente, error:$exp");
             

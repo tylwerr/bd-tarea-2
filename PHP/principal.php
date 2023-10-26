@@ -1,8 +1,18 @@
 <?php
+include("config.php");
 session_start();
-if (isset($_SESSION['nombre_usuario'])) {
-    $nombre_usuario = $_SESSION['nombre_usuario'];
-    $mensaje = "¡Hola, $nombre_usuario!";
+if (isset($_SESSION['email'])) {
+    $email = $_SESSION['email'];
+    $conn = Cconexion::ConexionBD();
+    $sql = "SELECT nombre_usuario FROM usuarios WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$email]);
+    
+    if ($stmt->rowCount() == 1) {
+        $row = $stmt->fetch();
+        $nombre_usuario = $row['nombre_usuario'];
+        $mensaje = "¡Hola, $nombre_usuario!";
+    }
 } else {
     header("location: login.php");
     exit();
@@ -35,13 +45,14 @@ if (isset($_SESSION['nombre_usuario'])) {
         .user-info {
             display: flex;
             align-items: center;
+            justify-content: space-between;
         }
 
         .user-image {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            margin-left: 800px;
+            
         }
 
         .user-name {
@@ -100,10 +111,10 @@ if (isset($_SESSION['nombre_usuario'])) {
     <div class="top-bar">
          <img class="right-image" src="//aula.usm.cl/pluginfile.php/1/theme_moove/logo/1697696553/marca-color.png" alt="USM04">
         <div class="user-info">
-            <img class="user-image" src="https://img.favpng.com/23/0/3/computer-icons-user-profile-clip-art-portable-network-graphics-png-favpng-YEj6NsJygkt6nFTNgiXg9fg9w.jpg" alt="Foto de perfil">
+            <img class="user-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Foto de perfil">
             <h2 class="user-name" id="user-name"><?php echo $mensaje; ?></h2>
             <div class="profile-menu" id="profile-menu">
-                <a class="profile-item" href="#">Perfil</a>
+                <a class="profile-item" href="perfil.php">Perfil</a>
                 <a class="profile-item" href="#">Favoritos</a>
                 <a class="profile-item" href="cerrar_sesion.php">Cerrar Sesión</a>
             </div>
