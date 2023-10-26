@@ -4,15 +4,13 @@ include_once("config.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
    
     $nombre_usuario = $_POST['nombre_usuario'];
-    $contrasena = $_POST['contrasena'];
     $email = $_POST['email'];
-
-   
+    $contrasena = $_POST['contrasena'];
+       
     $conn = Cconexion::ConexionBD();
-    $sql = "INSERT INTO usuarios (nombre_usuario, contrasena, email) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO usuarios (nombre_usuario, email, contrasena) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$nombre_usuario, $contrasena, $email]);
-
+    $stmt->execute([$nombre_usuario, $email, $contrasena]);
 
     header("location: registro_exitoso.php"); 
 }
@@ -41,16 +39,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form class="col-4 p-5" method="POST" action="registro.php">
         <h2 class="text-center text-secondary">Registro de Usuario</h2>
         <div class="mb-3">
-            <label for="username" class="form-label">Nombre de usuario</label>
-            <input type="text" class="form-control" id="username" required>
+            <label for="nombre_usuario" class="form-label">Nombre de usuario</label>
+            <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control" id="email" required>
+            <input type="email" class="form-control" id="email" name="email" required>
         </div>
         <div class="mb-3">
             <label for="contrasena" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="contrasena" required>
+            <input type="password" class="form-control" id="contrasena" name="contrasena" required>
         </div>
         <button type="submit" class="btn btn-primary" name="registro" value="ok" >Registrarse</button>
     </form>
