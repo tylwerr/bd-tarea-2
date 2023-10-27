@@ -122,7 +122,7 @@ if (isset($_SESSION['email'])) {
     </div>
 
     <div class="content">
-        <!-- página principal -->
+        <a href="recetas.php"><button>Ver Recetas</button></a>
     </div>
 
     <script>

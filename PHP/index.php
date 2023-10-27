@@ -1,20 +1,3 @@
-
-
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sabor USM</title>
-</head>
-<body>
-    <h2>Bienvenido</h2>
-    <a href="login.php"><button type="button">Iniciar Sesión</button></a>
-    <a href="registro.php"><button type="button">Registrarse</button></a>
-
-</body>
-</html>-->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
