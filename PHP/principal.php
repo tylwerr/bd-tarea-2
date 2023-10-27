@@ -124,7 +124,7 @@ if (isset($_SESSION['email'])) {
     </div>
 
     <div class="container">
-        <div class="row">
+        <div class="row gy-3">
             <div class="col-sm-6 mb-3 mb-sm-0">
                 <div class="card">
                     <img src="https://www.fmdos.cl/wp-content/uploads/2020/02/Comida-chilena-1024x680.jpg" class="card-img-top" alt="Foto recetas">
