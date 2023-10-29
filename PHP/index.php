@@ -8,7 +8,7 @@
     <style>
          body {
             font-family: Arial, sans-serif;
-            background-image: linear-gradient(rgba(243, 243, 243, 0.5), rgba(243, 243, 243, 0.5)), url('CDMU_Comedor.jpg');
+            background-image: linear-gradient(rgba(243, 243, 243, 0.5), rgba(243, 243, 243, 0.5)), url('../IMG/CDMU_Comedor.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;

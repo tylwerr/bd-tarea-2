@@ -115,8 +115,29 @@ if (isset($_SESSION['email'])) {
             height: 60px;
             margin-right : 10px;
         }
+
+        .col-sm-6 {
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .card-img-top {
+            object-fit: cover;
+        }
+
+        .col-md-4{
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .votar {
+            height: 200px;
+            object-fit: cover;           
+        }
+
     </style>
 </head>
+
 <body>
     <div class="top-bar">
         <img class="right-image" src="//aula.usm.cl/pluginfile.php/1/theme_moove/logo/1697696553/marca-color.png" alt="USM04">
@@ -133,21 +154,33 @@ if (isset($_SESSION['email'])) {
     </div>
 
     <div class="container">
-        <div class="row gy-3">
+        <div class="row">
+
             <div class="col-sm-6 mb-3 mb-sm-0">
                 <div class="card">
-                    <img src="https://www.fmdos.cl/wp-content/uploads/2020/02/Comida-chilena-1024x680.jpg" class="card-img-top" alt="Foto recetas">
+                    <img src="https://www.fmdos.cl/wp-content/uploads/2020/02/Comida-chilena-1024x680.jpg" class="card-img-top img-fluid" alt="Foto recetas">
                     <div class="card-body">
-                        <h5 class="card-title">Recetas</h5>
-                        <p class="card-text">Charlitos rajate con los completos</p>
-                        <a href="recetas.php" class="btn btn-primary">Ver todas</a>
+                        <h5 class="card-title">Recetas del casino</h5>
+                        <p class="card-text">Todas las recetas de SABOR USM ¡ya disponibles!</p>
+                        <a href="recetas.php" class="btn btn-primary">Mostrar más</a>
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="../IMG/votaciones.png" class="card-img-top votar img-fluid" alt="Votaciones">
+                    <div class="card-body">
+                        <h5 class="card-title">Votaciones de la semana</h5>
+                        <p class="card-text">¡Ahora puedes escoger el plato de fondo de este viernes!</p>
+                        <a href="votar.php" class="btn btn-primary">Votar</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 </body>
