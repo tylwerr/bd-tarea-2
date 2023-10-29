@@ -1,5 +1,6 @@
 <?php
 include_once("config.php");
+include_once("boton_volver.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
    

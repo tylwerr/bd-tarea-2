@@ -1,5 +1,6 @@
 <?php
 include_once("config.php");
+include_once("boton_volver.php");
 
 // Verificar si el usuario ya ha iniciado sesión
 session_start();
