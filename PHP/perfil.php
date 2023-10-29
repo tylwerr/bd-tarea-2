@@ -256,9 +256,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div id="editForm" style="display: <?php echo $showEditForm ? 'block' : 'none'; ?>;">
                     <h3 style="font-weight: bold; font-size: 20px; margin-top: 20px;">Editar Nombre de Usuario</h3>
                     <form method="POST" action="perfil.php">
-                        <label for="nuevo_email" style="font-weight; margin-top: 10px;">Nuevo Correo Electrónico:</label>
+                        <label for="nuevo_email" style="font-weight; margin-top: 10px">Nuevo Correo Electrónico:</label>
                         <input type="email" id="nuevo_email" name="nuevo_email" required style="width: 100%; padding: 8px; border: 1px solid #d2d6de; border-radius: 4px; margin-bottom: 15px;">
-                        <label for="nuevo_nombre" style="font-weight; margin-top: 10px;">Nuevo nombre:</label>
+                        <label for="nuevo_nombre" style="font-weight; margin-top: 10px">Nuevo nombre:</label>
                         <input type="text" id="nuevo_nombre" name="nuevo_nombre" required style="width: 100%; padding: 8px; border: 1px solid #d2d6de; border-radius: 4px; margin-bottom: 15px;">
                         <label for="nueva_cantidad_almuerzos" style="font-weight; margin-top: 10px;">Nueva cantidad de almuerzos:</label>
                         <input type="number" id="nueva_cantidad_almuerzos" name="nueva_cantidad_almuerzos" required style="width: 100%; padding: 8px; border: 1px solid #d2d6de; border-radius: 4px; margin-bottom: 15px;">
