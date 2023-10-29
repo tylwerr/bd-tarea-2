@@ -1,5 +1,5 @@
 <?php
-include("config.php");
+include_once("config.php");
 session_start();
 $nombre_receta = $_GET['nombre_receta'];
 $mensaje = ""; 
@@ -35,14 +35,6 @@ if (isset($_SESSION['email'])) {
     exit();
 }
 
-$sql_imagen = "SELECT url_imagen FROM recetas WHERE nombre_receta = ?";
-$stmt_imagen = $conn->prepare($sql_imagen);
-$stmt_imagen->execute([$nombre_receta]);
-if ($stmt_imagen->rowCount() == 1) {
-    $row_imagen = $stmt_imagen->fetch();
-    $url_imagen = $row_imagen['url_imagen'];
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $comentario = $_POST['comentario'];
     $calificacion = $_POST['calificacion'];
@@ -59,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -68,11 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <style>
-        img {
-            height: 400px;
-            object-fit: cover; 
-        }
-
         .btn-primary {
             color: #fff;
             background-color: #337ab7;
@@ -86,18 +74,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div style="margin: 10px;">
-        <a href="recetas.php" class="btn btn-primary">Atrás</a>
+        <a href="ver_receta.php?nombre_receta=<?php echo $nombre_receta?>" class="btn btn-primary">Atrás</a>
     </div>
-    <h2 class="text-center my-5">Reseña</h2>
+    <h2 class="text-center my-5"><?php echo "Reseña de ". $nombre_receta?></h2>
 
-    <img src="<?php echo $url_imagen; ?>"  alt="<?php echo $nombre_receta; ?>">
-    <h2><?php echo $nombre_receta; ?></h2>
     <form method="POST">
         <label for="calificacion">Calificar la receta (1-5):</label>
         <input type="number" name="calificacion" id="calificacion" min="1" max="5" required>
         <br>
         <label for="comentario">Añadir un comentario:</label>
-        <textarea name="comentario" id="comentario" rows="4" cols="50" required><?php echo $comentario; ?></textarea>
+        <textarea name="comentario" id="comentario" rows="4" cols="50"><?php echo $comentario; ?></textarea>
         <br>
         <input type="submit" value="Enviar reseña">
     </form>
