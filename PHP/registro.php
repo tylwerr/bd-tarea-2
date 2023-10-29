@@ -6,11 +6,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre_usuario = $_POST['nombre_usuario'];
     $email = $_POST['email'];
     $contrasena = $_POST['contrasena'];
+    $almuerzos = $_POST['cantidad_almuerzos'];
        
     $conn = Cconexion::ConexionBD();
-    $sql = "INSERT INTO usuarios (nombre_usuario, email, contrasena) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO usuarios (nombre_usuario, email, contrasena, cantidad_almuerzos) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$nombre_usuario, $email, $contrasena]);
+    $stmt->execute([$nombre_usuario, $email, $contrasena, $almuerzos]);
 
     header("location: registro_exitoso.php"); 
 }
@@ -45,6 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="mb-3">
             <label for="email" class="form-label">Correo electrónico</label>
             <input type="email" class="form-control" id="email" name="email" required>
+        </div>      
+        <div class="mb-3">
+            <label for="cantidad_almuerzos" class="form-label">Cantidad de Almuerzos</label>
+            <input type="number" class="form-control" id="cantidad_almuerzos" name="cantidad_almuerzos" required>
         </div>
         <div class="mb-3">
             <label for="contrasena" class="form-label">Contraseña</label>

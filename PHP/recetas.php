@@ -1,4 +1,5 @@
 <?php
+
 include("boton_volver.php");
 include_once("config.php");
 $conn = Cconexion::ConexionBD();
@@ -15,8 +16,11 @@ $stmt = $conn->query($sql);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <style>
-        .cards-wrapper {
-            column-gap: 15px;
+        .container {
+            background: rgba(255, 255, 255, 0.8); 
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
         }
 
         .card-img-top {
@@ -32,7 +36,7 @@ $stmt = $conn->query($sql);
     <h2 class="text-center my-5">Recetas</h2>
     
     <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
-    <div class="container cards-wrapper d-flex gx-5">
+    <div class="container d-flex gx-5">
         <div class="row gy-3">
             <div class="col-md-4">
                 <div class="card">

@@ -29,7 +29,7 @@ if (isset($_SESSION['email'])) {
 
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial, sans-serif; 
             background-color: #f3f3f3;
             margin: 0;
             padding: 0;
@@ -60,6 +60,14 @@ if (isset($_SESSION['email'])) {
         .user-name {
             font-size: 24px;
             cursor: pointer; 
+        }
+
+        .profile-menu-toggle {
+        display: none;
+        }   
+
+        .profile-menu-toggle:checked + .profile-menu {
+        display: block;
         }
 
         .content {
@@ -111,11 +119,12 @@ if (isset($_SESSION['email'])) {
 </head>
 <body>
     <div class="top-bar">
-         <img class="right-image" src="//aula.usm.cl/pluginfile.php/1/theme_moove/logo/1697696553/marca-color.png" alt="USM04">
+        <img class="right-image" src="//aula.usm.cl/pluginfile.php/1/theme_moove/logo/1697696553/marca-color.png" alt="USM04">
         <div class="user-info">
             <img class="user-image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Foto de perfil">
-            <h2 class="user-name" id="user-name"><?php echo $mensaje; ?></h2>
-            <div class="profile-menu" id="profile-menu">
+            <label class="user-name" for="profile-menu-toggle">¡Hola, <?php echo $nombre_usuario; ?>!</label>
+            <input type="checkbox" id="profile-menu-toggle" class="profile-menu-toggle">
+            <div class="profile-menu">  
                 <a class="profile-item" href="perfil.php">Perfil</a>
                 <a class="profile-item" href="#">Favoritos</a>
                 <a class="profile-item" href="cerrar_sesion.php">Cerrar Sesión</a>
@@ -138,21 +147,7 @@ if (isset($_SESSION['email'])) {
         </div>
     </div>
 
-    <script>
-        const userName = document.getElementById("user-name");
-        const profileMenu = document.getElementById("profile-menu");
-        
-        userName.addEventListener("click", () => {
-            profileMenu.style.display = (profileMenu.style.display === "block") ? "none" : "block";
-        });
-
-       
-        document.addEventListener("click", (event) => {
-            if (!userName.contains(event.target) && !profileMenu.contains(event.target)) {
-                profileMenu.style.display = "none";
-            }
-        });
-    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 </body>
