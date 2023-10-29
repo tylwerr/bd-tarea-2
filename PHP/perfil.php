@@ -192,6 +192,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background-color: blue;
             color: white;
         }
+
+        .btn-favorite {
+            background-color: #F1C40F; 
+            color: #fff; 
+            border: 1px #28a745; 
+            padding: 8px 16px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
     </style>
 </head>
 <body>
@@ -206,6 +215,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="left box-primary">
                 <img class="image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Imagen de Usuario" />
                 <h3 class="username text-center"><?php echo htmlspecialchars($user['nombre_usuario']); ?></h3>
+                <div class="text-center">
+                    <a href="favoritos.php" class="btn btn-favorite">Favoritos</a>
+                </div>           
             </div>
             <div class="right tab-content">
                 <form class="form-horizontal">

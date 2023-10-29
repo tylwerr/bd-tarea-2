@@ -147,7 +147,7 @@ if (isset($_SESSION['email'])) {
             <input type="checkbox" id="profile-menu-toggle" class="profile-menu-toggle">
             <div class="profile-menu">  
                 <a class="profile-item" href="perfil.php">Perfil</a>
-                <a class="profile-item" href="#">Favoritos</a>
+                <a class="profile-item" href="favoritos.php">Favoritos</a>
                 <a class="profile-item" href="cerrar_sesion.php">Cerrar Sesión</a>
             </div>
         </div>
