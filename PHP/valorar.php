@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $comentario = $_POST['comentario'];
     $calificacion = $_POST['calificacion'];
     if ($calificacion >= 1 && $calificacion <= 5) {
-        $sql_insert = "INSERT INTO resenas (id_user, id_receta, comentario, calificacion) VALUES (?, ?, ?, ?)";
+        $sql_insert = "INSERT INTO resenas (id_user, id_receta, comentario, calificacion, fecha_resena) VALUES (?, ?, ?, ?, NOW())";
         $stmt_insert = $conn->prepare($sql_insert);
     }
     
