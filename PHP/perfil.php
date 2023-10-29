@@ -199,7 +199,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="top-bar">
             <img class="right-image" src="//aula.usm.cl/pluginfile.php/1/theme_moove/logo/1697696553/marca-color.png" alt="USM04">
         </div>
-        <a href="principal.php" class="btn btn-primary">Atrás</a>
+        <div style="margin: 10px;">
+            <a href="principal.php" class="btn btn-primary">Atrás</a>
+        </div>
         <div class="container">
             <div class="left box-primary">
                 <img class="image" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Imagen de Usuario" />

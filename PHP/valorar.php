@@ -1,6 +1,5 @@
 <?php
 include("config.php");
-include("boton_volver.php");
 session_start();
 $nombre_receta = $_GET['nombre_receta'];
 $mensaje = ""; 
@@ -66,16 +65,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reseña</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
     <style>
         img {
-            max-width: 90%; 
-            height: auto; 
+            height: 400px;
+            object-fit: cover; 
         }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #337ab7;
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
     </style>
 </head>
+
 <body>
-    <h1>Reseña</h1>
-    <img src="<?php echo $url_imagen; ?>" alt="<?php echo $nombre_receta; ?>">
+    <div style="margin: 10px;">
+        <a href="recetas.php" class="btn btn-primary">Atrás</a>
+    </div>
+    <h2 class="text-center my-5">Reseña</h2>
+
+    <img src="<?php echo $url_imagen; ?>"  alt="<?php echo $nombre_receta; ?>">
     <h2><?php echo $nombre_receta; ?></h2>
     <form method="POST">
         <label for="calificacion">Calificar la receta (1-5):</label>
@@ -89,10 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     <p><?php echo $mensaje; ?></p>
     
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 
 </body>
 </html>
-
-
-

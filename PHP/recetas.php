@@ -1,6 +1,5 @@
 <?php
 
-include("boton_volver.php");
 include_once("config.php");
 $conn = Cconexion::ConexionBD();
 $sql = "SELECT * FROM recetas";
@@ -26,11 +25,22 @@ $stmt = $conn->query($sql);
             height: 200px;
             object-fit: cover;
         }
+
+        .btn-back {
+            color: #fff;
+            background-color: #337ab7;
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
         
     </style>
 </head>
 
 <body>
+    <div style="margin: 10px;">
+        <a href="principal.php" class="btn btn-back">Atrás</a>
+    </div>
     <h2 class="text-center my-5">Recetas</h2>
     
     <div class="container">
