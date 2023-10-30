@@ -10,26 +10,20 @@ if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];
     $conn = Cconexion::ConexionBD();
 
-    $sql_usuario = "SELECT id, nombre_usuario FROM usuarios WHERE email = ?";
-    $stmt_usuario = $conn->prepare($sql_usuario);
-    $stmt_usuario->execute([$email]);
+    // uso de JOIN ahorra dos consultas
+    $sql = "SELECT user.id AS id_usuario, r.nombre_receta 
+            FROM usuarios user
+            JOIN recetas r ON r.id_receta = ?
+            WHERE user.email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$id_receta, $email]);
 
-    if ($stmt_usuario->rowCount() == 1) {
-        $row_usuario = $stmt_usuario->fetch();
-        $id_usuario = $row_usuario['id'];
-        $nombre_usuario = $row_usuario['nombre_usuario'];
-
-
-        $sql_receta = "SELECT nombre_receta FROM recetas WHERE id_receta = ?";
-        $stmt_receta = $conn->prepare($sql_receta);
-        $stmt_receta->execute([$id_receta]);
-
-        if ($stmt_receta->rowCount() == 1) {
-            $row_receta = $stmt_receta->fetch();
-            $nombre_receta = $row_receta['nombre_receta'];
-
-        }
+    if ($stmt->rowCount() == 1) {
+        $row = $stmt->fetch();
+        $id_usuario = $row['id_usuario'];
+        $nombre_receta = $row['nombre_receta'];
     }
+
 } else {
     header("location: login.php");
     exit();
@@ -38,15 +32,28 @@ if (isset($_SESSION['email'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $comentario = $_POST['comentario'];
     $calificacion = $_POST['calificacion'];
-    if ($calificacion >= 1 && $calificacion <= 5) {
-        $sql_insert = "INSERT INTO resenas (id_user, id_receta, comentario, calificacion, fecha_resena) VALUES (?, ?, ?, ?, NOW())";
-        $stmt_insert = $conn->prepare($sql_insert);
-    }
+
+    // verifica si ya se hizo una reseña
+    $sql_resena = "SELECT COUNT(*) AS num_resenas FROM resenas WHERE id_user = ? AND id_receta = ?";
+    $stmt_resena = $conn->prepare($sql_resena);
+    $stmt_resena->execute([$id_usuario, $id_receta]);
+    $existe_resena = ($stmt_resena->fetchColumn() > 0);
     
-    if ($stmt_insert->execute([$id_usuario, $id_receta, $comentario, $calificacion])) {
-        $mensaje = "Ingreso de reseña exitosa.";
+    if ($existe_resena) {
+        $mensaje = "¡Ya has calificado esta receta!";
+    
     } else {
-        $mensaje = "Error al agregar la reseña.";
+        // agrega reseña
+        if ($calificacion >= 1 && $calificacion <= 5) {
+            $sql_insert = "INSERT INTO resenas (id_user, id_receta, comentario, calificacion, fecha_resena) VALUES (?, ?, ?, ?, NOW())";
+            $stmt_insert = $conn->prepare($sql_insert);
+        }
+
+        if ($stmt_insert->execute([$id_usuario, $id_receta, $comentario, $calificacion])) {
+            $mensaje = "Ingreso de reseña exitosa.";
+        } else {
+            $mensaje = "Error al agregar la reseña.";
+        }
     }
 }
 
