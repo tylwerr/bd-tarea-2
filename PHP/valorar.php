@@ -61,12 +61,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <style>
+        body {
+            background-image: linear-gradient(rgba(243, 243, 243, 0.5), rgba(243, 243, 243, 0.5)), url('../IMG/resenas.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #f3f3f3;
+        } 
+
         .btn-primary {
             color: #fff;
             background-color: #337ab7;
             display: inline-block;
             padding: 5px 10px;
             font-size: 14px;
+        }
+
+        .send {
+            background-color: #388E3C; 
+            color: #fff; 
+            border: 1px #388E3C; 
+            padding: 5px 14px; 
+            border-radius: 4px; 
+            margin: 10px;
+        }
+        
+        .text-center {
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 1);
+            color: black;
+        }
+
+        .form-label{
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 1);
+            color: black;
         }
 
     </style>
@@ -78,14 +105,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <h2 class="text-center my-5"><?php echo "Reseña de ". $nombre_receta?></h2>
 
-    <form method="POST">
-        <label for="calificacion">Calificar la receta (1-5):</label>
-        <input type="number" name="calificacion" id="calificacion" min="1" max="5" required>
-        <br>
-        <label for="comentario">Añadir un comentario:</label>
-        <textarea name="comentario" id="comentario" rows="4" cols="50"><?php echo $comentario; ?></textarea>
-        <br>
-        <input type="submit" value="Enviar reseña">
+    <p class="text-center my-5">Recuerda opinar seriamente, ¡sus comentarios nos importan!</p>
+
+    <form method="POST" style="margin: 100px;">
+        <div class="mb-3">
+            <label for="calificacion" class="form-label">Calificar la receta (1-5):</label>
+            <input type="number" class="form-control" name="calificacion" id="calificacion" min="1" max="5" required>
+        </div>
+        <div class="mb-3">
+            <label for="comentario" class="form-label">Añadir un comentario:</label>
+            <textarea class="form-control" name="comentario" id="comentario" rows="4" cols="50"><?php echo $comentario; ?></textarea>
+        </div>
+        <input class="btn btn-primary send" type="submit" value="Enviar reseña">
     </form>
     
     <p><?php echo $mensaje; ?></p>
