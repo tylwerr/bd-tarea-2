@@ -1,7 +1,7 @@
 <?php
 include_once("config.php");
 session_start();
-$nombre_receta = $_GET['nombre_receta'];
+$id_receta = $_GET['id_receta'];
 $mensaje = ""; 
 $comentarioPredefinido = "";
 $comentario = "";
@@ -20,13 +20,13 @@ if (isset($_SESSION['email'])) {
         $nombre_usuario = $row_usuario['nombre_usuario'];
 
 
-        $sql_receta = "SELECT id_receta FROM recetas WHERE nombre_receta = ?";
+        $sql_receta = "SELECT nombre_receta FROM recetas WHERE id_receta = ?";
         $stmt_receta = $conn->prepare($sql_receta);
-        $stmt_receta->execute([$nombre_receta]);
+        $stmt_receta->execute([$id_receta]);
 
         if ($stmt_receta->rowCount() == 1) {
             $row_receta = $stmt_receta->fetch();
-            $id_receta = $row_receta['id_receta'];
+            $nombre_receta = $row_receta['nombre_receta'];
 
         }
     }
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div style="margin: 10px;">
-        <a href="ver_receta.php?nombre_receta=<?php echo $nombre_receta?>" class="btn btn-primary">Atrás</a>
+        <a href="ver_receta.php?id_receta=<?php echo $id_receta?>" class="btn btn-primary">Atrás</a>
     </div>
     <h2 class="text-center my-5"><?php echo "Reseña de ". $nombre_receta?></h2>
 

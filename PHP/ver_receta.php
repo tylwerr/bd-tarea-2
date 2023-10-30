@@ -2,20 +2,21 @@
 include_once("config.php");
 session_start();
 $conn = Cconexion::ConexionBD();
-$nombre_receta = $_GET['nombre_receta'];
+$id_receta = $_GET['id_receta'];
+$mensaje = '';
 
 $sql_info_receta = "
-    SELECT id_receta, tipo_platillo, tiempo_preparacion, etiquetas, instrucciones, ingredientes, url_imagen
+    SELECT nombre_receta, tipo_platillo, tiempo_preparacion, etiquetas, instrucciones, ingredientes, url_imagen
     FROM recetas
-    WHERE nombre_receta = ?
+    WHERE id_receta = ?
 ";
 
 $stmt_info_receta = $conn->prepare($sql_info_receta);
-$stmt_info_receta->execute([$nombre_receta]);
+$stmt_info_receta->execute([$id_receta]);
 
 if ($stmt_info_receta->rowCount() == 1) {
     $row_info_receta = $stmt_info_receta->fetch();
-    $id_receta = $row_info_receta['id_receta'];
+    $nombre_receta = $row_info_receta['nombre_receta'];
     $tipo_platillo = $row_info_receta['tipo_platillo'];
     $tiempo_preparacion = $row_info_receta['tiempo_preparacion'];
     $etiquetas = $row_info_receta['etiquetas'];
@@ -63,6 +64,14 @@ if ($stmt_promedio->rowCount() > 0) {
             font-size: 14px;
         }
 
+        .btn-favorite {
+            color: #fff;
+            background-color: #F1C40F;
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
     </style>
 </head>
 
@@ -84,15 +93,20 @@ if ($stmt_promedio->rowCount() > 0) {
                     "Instrucciones: " . $instrucciones; ?></p>
                     <p class="card-text"><small class="text-body-secondary"><?php echo "Promedio de calificaciones: " . number_format($promedio, 2); ?></small></p>
                 </div>
-                <div style="margin: 10px;">
-                    <a href="valorar.php?nombre_receta=<?php echo $nombre_receta?>" class="btn btn-primary">Valorar</a>
-                </div>
+                <form method="POST" action="agregar_favorito.php">
+                    <input type="hidden" name="id_receta" value="<?php echo $id_receta; ?>">
+                    <div style="margin: 10px;">
+                        <a href="valorar.php?id_receta=<?php echo $id_receta?>" class="btn btn-primary">Valorar</a>
+                        <button type="submit" class="btn btn-favorite" name="agregar_favorito">Añadir a favoritos</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <p><?php echo $mensaje; ?></p>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
 </body>
 </html>

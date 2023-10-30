@@ -51,7 +51,7 @@ $stmt = $conn->query($sql);
                     <img src="<?php echo $row['url_imagen']; ?>" class="card-img-top img-fluid" alt="<?php echo $row['nombre_receta']; ?>">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $row['nombre_receta']; ?></h5>
-                        <a href="ver_receta.php?nombre_receta=<?php echo urlencode($row['nombre_receta']);?>" class="btn btn-primary">Ver</a>
+                        <a href="ver_receta.php?id_receta=<?php echo urlencode($row['id_receta']);?>" class="btn btn-primary">Ver</a>
                     </div>
                 </div>
             </div>
