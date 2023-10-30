@@ -3,8 +3,10 @@ include_once("config.php");
 session_start();
 $id_receta = $_GET['id_receta'];
 $mensaje = ""; 
-$comentarioPredefinido = "";
 $comentario = "";
+$alerta = false;
+$alerta_buena = false;
+$alerta_mala = false;
 
 if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];
@@ -40,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $existe_resena = ($stmt_resena->fetchColumn() > 0);
     
     if ($existe_resena) {
+        $alerta = true;
         $mensaje = "¡Ya has calificado esta receta!";
     
     } else {
@@ -50,8 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($stmt_insert->execute([$id_usuario, $id_receta, $comentario, $calificacion])) {
+            $alerta_buena = true;
             $mensaje = "Ingreso de reseña exitosa.";
         } else {
+            $alerta_mala = true;
             $mensaje = "Error al agregar la reseña.";
         }
     }
@@ -103,6 +108,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: black;
         }
 
+        .custom-alert {
+            width: 50%;
+            margin: auto;
+        }
+
+        .bi {
+        width: 1.5em;
+        height: 1.5em;
+        }
+
     </style>
 </head>
 
@@ -113,6 +128,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h2 class="text-center my-5"><?php echo "Reseña de ". $nombre_receta?></h2>
 
     <p class="text-center my-5">Recuerda opinar seriamente, ¡sus comentarios nos importan!</p>
+
+    <?php if ($alerta_buena): ?>
+        <div class="alert alert-success custom-alert d-flex align-items-center" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-check-circle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Success:">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>
+            <div>
+                <?php echo $mensaje ?>
+            </div>
+        </div>
+    <?php elseif ($alerta): ?>
+        <div class="alert alert-primary custom-alert d-flex align-items-center" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            <div>
+                <?php echo $mensaje ?>
+            </div>
+        </div>
+    <?php elseif ($alerta_mala): ?>
+        <div class="alert alert-danger custom-alert d-flex align-items-center" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Danger:">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            <div>
+                <?php echo $mensaje ?>
+            </div>
+        </div>
+    <?php endif; ?>
 
     <form method="POST" style="margin: 100px;">
         <div class="mb-3">
@@ -126,10 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input class="btn btn-primary send" type="submit" value="Enviar reseña">
     </form>
     
-    <p><?php echo $mensaje; ?></p>
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
 
 </body>
 </html>
