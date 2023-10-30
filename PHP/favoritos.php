@@ -26,6 +26,15 @@ if (isset($_SESSION['email'])) {
         }
     }
 
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['delete_favorite'])) {
+            $sql = "DELETE FROM favoritos WHERE id_receta = ? AND id_user = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([$id_receta, $id_usuario]);
+            header("location: favoritos.php"); 
+        }
+    }
+
 } else {
     header("location: login.php");
     exit();
@@ -53,12 +62,28 @@ if (isset($_SESSION['email'])) {
             object-fit: cover;
         }
         
-         .btn-back {
+        .back {
             color: #fff;
             background-color: #337ab7;
             display: inline-block;
             padding: 5px 10px;
             font-size: 14px;
+        }
+
+        .btn-primary {
+            background-color: #2E86C1; 
+            color: #fff; 
+            border: 1px #2E86C1; 
+            padding: 5px 14px; 
+            border-radius: 4px;
+        }
+
+        .delete {
+            background-color: #D32F2F; 
+            color: #fff; 
+            border: 1px #D32F2F; 
+            padding: 5px 14px; 
+            border-radius: 4px;  
         }       
     
     </style>
@@ -66,7 +91,7 @@ if (isset($_SESSION['email'])) {
 
 <body>
     <div style="margin: 10px;">
-        <a href="principal.php" class="btn btn-back">Atrás</a>
+        <a href="principal.php" class="btn back">Atrás</a>
     </div>
     <h2 class="text-center my-5">Tus recetas favoritas</h2>
 
@@ -91,7 +116,7 @@ if (isset($_SESSION['email'])) {
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $receta['nombre_receta']; ?></h5>
                             <a href="ver_receta.php?id_receta=<?php echo urlencode($id_receta);?>" class="btn btn-primary">Ver</a>
-                            <a href="#" class="btn btn-primary">Eliminar</a>
+                            <a href="eliminar_favorito.php?id_receta=<?php echo urlencode($id_receta);?>&id_usuario=<?php echo urldecode($id_usuario)?>" class="btn delete">Eliminar</a>
                         </div>
                     </div>
                 </div>
