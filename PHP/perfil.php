@@ -201,8 +201,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-radius: 4px; 
             cursor: pointer; 
         }
+
+        .btn-resenas {
+            background-color: #9C27B0; 
+            color: #fff; 
+            border: 1px #28a745; 
+            padding: 8px 16px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+
     </style>
 </head>
+
 <body>
     <main>
         <div class="top-bar">
@@ -217,6 +228,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h3 class="username text-center"><?php echo htmlspecialchars($user['nombre_usuario']); ?></h3>
                 <div class="text-center">
                     <a href="favoritos.php" class="btn btn-favorite">Favoritos</a>
+                    <a href="ver_resenas.php" class="btn btn-resenas">Ver tus reseñas</a>
                 </div>           
             </div>
             <div class="right tab-content">

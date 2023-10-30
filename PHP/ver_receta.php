@@ -5,11 +5,9 @@ $conn = Cconexion::ConexionBD();
 $id_receta = $_GET['id_receta'];
 $mensaje = $_GET['mensaje'];
 
-$sql_info_receta = "
-    SELECT nombre_receta, tipo_platillo, tiempo_preparacion, etiquetas, instrucciones, ingredientes, url_imagen
-    FROM recetas
-    WHERE id_receta = ?
-";
+$sql_info_receta = "SELECT nombre_receta, tipo_platillo, tiempo_preparacion, etiquetas, instrucciones, ingredientes, url_imagen
+                    FROM recetas
+                    WHERE id_receta = ?";
 
 $stmt_info_receta = $conn->prepare($sql_info_receta);
 $stmt_info_receta->execute([$id_receta]);
