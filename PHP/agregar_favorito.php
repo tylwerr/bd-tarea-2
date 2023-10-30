@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['agregar_favorito'])) 
 
     if ($es_favorito) {
         $mensaje = "¡Esta receta ya está en tus favoritos!";
-        header("location: ver_receta.php?id_receta=". $id_receta);
+        header("location: ver_receta.php?id_receta=$id_receta&mensaje=$mensaje");
         exit();
 
     } else {
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['agregar_favorito'])) 
         $stmt_insert->execute([$id_usuario, $id_receta]);
 
         $mensaje = "¡Receta agregada a favoritos!";
-        header("location: ver_receta.php?id_receta=". $id_receta);
+        header("location: ver_receta.php?id_receta=$id_receta&mensaje=$mensaje");
         exit();
     }
 }

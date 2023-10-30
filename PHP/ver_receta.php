@@ -3,7 +3,7 @@ include_once("config.php");
 session_start();
 $conn = Cconexion::ConexionBD();
 $id_receta = $_GET['id_receta'];
-$mensaje = '';
+$mensaje = $_GET['mensaje'];
 
 $sql_info_receta = "
     SELECT nombre_receta, tipo_platillo, tiempo_preparacion, etiquetas, instrucciones, ingredientes, url_imagen
@@ -72,6 +72,11 @@ if ($stmt_promedio->rowCount() > 0) {
             font-size: 14px;
         }
 
+        .alert {
+            width: 50%;
+            margin: auto;
+        }
+
     </style>
 </head>
 
@@ -81,6 +86,16 @@ if ($stmt_promedio->rowCount() > 0) {
     </div>
     <h2 class="text-center my-5"><?php echo $nombre_receta; ?></h2>
 
+    <?php if ($mensaje === "¡Receta agregada a favoritos!"): ?> 
+        <div class="alert alert-warning" role="alert">
+            <?php echo $mensaje; ?>
+        </div>
+    <?php elseif($mensaje === "¡Esta receta ya está en tus favoritos!"): ?>
+        <div class="alert alert-dark" role="alert">
+            <?php echo $mensaje; ?>
+        </div>
+    <?php endif; ?>
+    
     <div class="row justify-content-center">
         <div class="col-sm-6 mb-3 mb-sm-0">
             <div class="card mb-3">
@@ -103,8 +118,6 @@ if ($stmt_promedio->rowCount() > 0) {
             </div>
         </div>
     </div>
-
-    <p><?php echo $mensaje; ?></p>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 

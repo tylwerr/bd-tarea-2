@@ -123,7 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div style="margin: 10px;">
-        <a href="ver_receta.php?id_receta=<?php echo $id_receta?>" class="btn btn-primary">Atrás</a>
+        <a href="ver_receta.php?id_receta=<?php echo $id_receta?>&mensaje=" class="btn btn-primary">Atrás</a>
     </div>
     <h2 class="text-center my-5"><?php echo "Reseña de ". $nombre_receta?></h2>
 
