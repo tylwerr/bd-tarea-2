@@ -26,15 +26,6 @@ if (isset($_SESSION['email'])) {
         }
     }
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST['delete_favorite'])) {
-            $sql = "DELETE FROM favoritos WHERE id_receta = ? AND id_user = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->execute([$id_receta, $id_usuario]);
-            header("location: favoritos.php"); 
-        }
-    }
-
 } else {
     header("location: login.php");
     exit();
@@ -84,7 +75,12 @@ if (isset($_SESSION['email'])) {
             border: 1px #D32F2F; 
             padding: 5px 14px; 
             border-radius: 4px;  
-        }       
+        }
+        
+        .alert {
+            width: 50%;
+            margin: auto;
+        }
     
     </style>
 </head>
@@ -95,7 +91,15 @@ if (isset($_SESSION['email'])) {
     </div>
     <h2 class="text-center my-5">Tus recetas favoritas</h2>
 
-    <p class="text-center my-5"><?php echo $mensaje; ?></p>
+    <?php if ($mensaje === "¡Todavía no has agregado recetas a favoritos!"): ?> 
+        <div class="alert alert-primary" role="alert">
+            <?php echo $mensaje; ?>
+        </div>
+    <?php elseif(isset($_GET['eliminado']) && $_GET['eliminado'] == true ): ?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo "Receta eliminada de tus favoritos" ?>
+        </div>
+    <?php endif; ?>
 
     <div class="container">
         <div class="row">
