@@ -2,8 +2,30 @@
 
 include_once("config.php");
 $conn = Cconexion::ConexionBD();
-$sql = "SELECT * FROM recetas";
-$stmt = $conn->query($sql);
+
+if (isset($_GET['orden'])){
+    $orden = $_GET['orden'];
+} else {
+    $orden = 'ascendente';
+}
+if (isset($_GET['q'])) {
+    $consulta = $_GET['q'];
+    $filtro = $_GET['filtro'];
+    
+    if (!empty($filtro)) {
+        $sql = "SELECT * FROM recetas WHERE (nombre_receta LIKE :consulta OR ingredientes_filtro LIKE :consulta) AND (etiquetas LIKE :filtro OR tipo_platillo LIKE :filtro) ORDER BY promedio_calificaciones " . ($orden === 'ascendente' ? 'ASC' : 'DESC');
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([':consulta' => '%' . $consulta . '%', ':filtro' => '%' . $filtro . '%']);
+    } else {
+        $sql = "SELECT * FROM recetas WHERE nombre_receta LIKE :consulta OR ingredientes_filtro LIKE :consulta ORDER BY promedio_calificaciones " . ($orden === 'ascendente' ? 'ASC' : 'DESC');
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([':consulta' => '%' . $consulta . '%']);
+    }
+} else {
+    $sql = "SELECT * FROM recetas ORDER BY promedio_calificaciones " . ($orden === 'ascendente' ? 'ASC' : 'DESC');
+    $stmt = $conn->query($sql);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -42,8 +64,42 @@ $stmt = $conn->query($sql);
         <a href="principal.php" class="btn btn-back">Atrás</a>
     </div>
     <h2 class="text-center my-5">Recetas</h2>
-    
     <div class="container">
+        <form action="recetas.php" method="GET" class="mb-4">
+            <div class="input-group">
+                <input type="text" class="form-control" name="q" placeholder="Buscar recetas/ingrediente">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+            <div class="mt-2">
+                <label for="orden" class="form-label">Ordenar por:</label>
+                <select name="orden" class="form-select" id="orden" style="max-width: 200px">
+                    <option selected disabled>Seleccione una opcion:</option>
+                    <option value="ascendente">Calificacion (De menor a mayor)</option>
+                    <option value="descendente">Calificacion (De mayor a menor)</option>
+                </select>
+            </div>
+            <div class="mt-2">
+                <button type="button" class="btn btn-secondary" id="mostrarFiltro">Filtro de alimentos</button>
+                <div id="filtroDropdown" style="display: none;">
+                    <select name="filtro" class="form-select">
+                        <option value="">Todas las recetas </option>
+                        <optgroup label="Tipos de menu">
+                            <option value="Tiene gluten">Con gluten</option>
+                            <option value="Sin gluten" >Sin gluten</option>
+                            <option value="Tiene lactosa">Con lactosa</option>
+                            <option value="Sin lactosa">Sin lactosa</option>
+                            <option value="Apto para diabéticos"> Para diabeticos</option>
+                            <option value="Apto para veganos"> Para veganos</option>
+                        </optgroup>
+                        <optgroup label = "Tipo de platos">
+                            <option value="Entrada">Plato de entrada</option>
+                            <option value="Plato de fondo">Plato de fondo</option>
+                            <option value="Postre">Postre</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+        </form>
         <div class="row">
             <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
             <div class="col-md-4">
@@ -58,8 +114,24 @@ $stmt = $conn->query($sql);
             <?php } ?>
         </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>   
+        const mostrarFiltrosButton = document.getElementById('mostrarFiltro');
+        const filtroDropdown = document.getElementById('filtroDropdown');
+        const ordenSelect = document.getElementById('orden');
 
+
+        mostrarFiltrosButton.addEventListener('click', function() {
+            if (filtroDropdown.style.display === 'none') {
+                filtroDropdown.style.display = 'block';
+            } else {
+                filtroDropdown.style.display = 'none';
+            }
+        });
+
+        ordenSelect.addEventListener('change', function() {
+            document.forms[0].submit();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"> </script>
 </body>
 </html>
