@@ -28,9 +28,15 @@ $stmt_promedio = $conn->prepare($sql_promedio);
 $stmt_promedio->execute([$id_receta]);
 
 if ($stmt_promedio->rowCount() > 0) {
-    // Mostrar el promedio de las calificaciones
+    // Obtener el promedio de las calificaciones
     $row_promedio = $stmt_promedio->fetch();
     $promedio = $row_promedio["promedio"];
+
+    $sql_update = "UPDATE recetas
+                    SET promedio_calificaciones = ?
+                    WHERE id_receta = ?";
+    $stmt_update = $conn->prepare($sql_update);
+    $stmt_update->execute([$promedio, $id_receta]);
 }
 
 ?>
