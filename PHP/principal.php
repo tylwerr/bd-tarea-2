@@ -117,7 +117,7 @@ if (isset($_SESSION['email'])) {
         }
 
         .votar {
-            height: 600px;
+            height: 300px;
             object-fit: cover;           
         }
 
