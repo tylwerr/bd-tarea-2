@@ -74,12 +74,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <style>
         body {
-            background-image: linear-gradient(rgba(243, 243, 243, 0.5), rgba(243, 243, 243, 0.5)), url('../IMG/resenas.png');
+            background-image: linear-gradient(rgba(243, 243, 243, 0.5), rgba(243, 243, 243, 0.5));
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-color: #f3f3f3;
-        } 
+        }
+
+        .top-bar {
+            background-color: #074469;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .right-image {
+            width: 300px;
+            height: 60px;
+            margin-right : 10px;
+        }
 
         .btn-primary {
             color: #fff;
@@ -122,6 +137,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <div class="top-bar">
+        <img class="right-image" src="//aula.usm.cl/pluginfile.php/1/theme_moove/logo/1697696553/marca-color.png" alt="USM04">
+    </div>
     <div style="margin: 10px;">
         <a href="ver_receta.php?id_receta=<?php echo $id_receta?>&mensaje=" class="btn btn-primary">Atrás</a>
     </div>

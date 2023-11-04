@@ -131,7 +131,7 @@ if (isset($_SESSION['email'])) {
         }
 
         .votar {
-            height: 200px;
+            height: 600px;
             object-fit: cover;           
         }
 
@@ -154,11 +154,10 @@ if (isset($_SESSION['email'])) {
     </div>
 
     <div class="container">
-        <div class="row">
-
-            <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="row align-items-stretch">
+            <div class="col mt-5">
                 <div class="card">
-                    <img src="https://www.fmdos.cl/wp-content/uploads/2020/02/Comida-chilena-1024x680.jpg" class="card-img-top img-fluid" alt="Foto recetas">
+                    <img src="../IMG/resenas.png" class="card-img-top votar img-fluid" alt="Foto recetas">
                     <div class="card-body">
                         <h5 class="card-title">Recetas del casino</h5>
                         <p class="card-text">Todas las recetas de SABOR USM ¡ya disponibles!</p>
@@ -167,7 +166,7 @@ if (isset($_SESSION['email'])) {
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col mt-5">
                 <div class="card">
                     <img src="../IMG/votaciones.png" class="card-img-top votar img-fluid" alt="Votaciones">
                     <div class="card-body">
@@ -177,9 +176,9 @@ if (isset($_SESSION['email'])) {
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 

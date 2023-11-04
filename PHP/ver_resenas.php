@@ -2,15 +2,13 @@
 include_once("config.php");
 session_start();
 
-
 if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];
     $conn = Cconexion::ConexionBD();
 
-    $sql = "SELECT user.id AS id_usuario, r.id_receta, r.calificacion, r.comentario, r.fecha_resena
-            FROM usuarios user
-            JOIN resenas r ON r.id_user = user.id
-            WHERE user.email = ?";
+    $sql = "SELECT vr.id_user, vr.id_receta, vr.calificacion, vr.comentario, vr.fecha_resena
+            FROM vista_resenas vr
+            WHERE vr.email_usuario = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$email]);
 
@@ -21,7 +19,7 @@ if (isset($_SESSION['email'])) {
 
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -30,6 +28,27 @@ if (isset($_SESSION['email'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <style>
+        body {
+            font-family: Arial, sans-serif; 
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+        .top-bar {
+            background-color: #074469;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .right-image {
+            width: 300px;
+            height: 60px;
+            margin-right : 10px;
+        }
+
          .btn-back {
             color: #fff;
             background-color: #337ab7;
@@ -39,15 +58,20 @@ if (isset($_SESSION['email'])) {
         }
 
         .col-md-4 {
-            background: rgba(255, 255, 255, 0.8); 
+            background: #f3f3f3; 
             padding: 20px;
             border-radius: 10px;
         }       
-    
+        label.col.control-label {
+            margin-left: 10px;
+        }
     </style>
 </head>
 
 <body>
+    <div class="top-bar">
+        <img class="right-image" src="//aula.usm.cl/pluginfile.php/1/theme_moove/logo/1697696553/marca-color.png" alt="USM04">
+    </div>
     <div style="margin: 10px;">
         <a href="perfil.php" class="btn btn-back">Atrás</a>
     </div>
@@ -58,7 +82,7 @@ if (isset($_SESSION['email'])) {
 
             <?php if ($stmt->rowCount() > 0) {?>
                 <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    $id_usuario = $row['id_usuario'];
+                    $id_usuario = $row['id_user'];
                     $id_receta = $row['id_receta'];
                     $calificacion = $row['calificacion'];
                     $comentario = $row['comentario'];
@@ -68,22 +92,28 @@ if (isset($_SESSION['email'])) {
                         <div class="card">
                             <form class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Calificación</label>
+                                    <label class="col control-label">Calificación</label>
                                     <div class="col-sm-10">
                                     <p class="form-control" readonly><?php echo htmlspecialchars($calificacion); ?></p>  
                                     </div>
                                 </div>
                                             
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Comentario</label>
+                                    <label class="col control-label">Comentario</label>
                                     <div class="col-sm-10">
                                     <p class="form-control" readonly><?php echo htmlspecialchars($comentario); ?></p>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">Fecha</label>
+                                    <label class="col control-label">Fecha</label>
                                     <div class="col-sm-10">
                                         <p class="form-control" readonly><?php echo htmlspecialchars($fecha_resena); ?></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <a href="editar_resena.php?id=<?php echo $id_receta; ?>" class="btn btn-primary">Editar</a>
+                                        <a href="eliminar_resena.php?id=<?php echo $id_receta; ?>" class="btn btn-danger">Eliminar</a>
                                     </div>
                                 </div>
                             </form>            

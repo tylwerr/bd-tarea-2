@@ -19,8 +19,6 @@ if (isset($_SESSION['email'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['agregar_favorito'])) {
     $id_receta = $_POST['id_receta'];
-
-    // verifica si ya esta agregada a favoritos
     $sql_favorito = "SELECT COUNT(*) AS num_favoritos FROM favoritos WHERE id_user = ? AND id_receta = ?";
     $stmt_favorito = $conn->prepare($sql_favorito);
     $stmt_favorito->execute([$id_usuario, $id_receta]);
@@ -32,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['agregar_favorito'])) 
         exit();
 
     } else {
-        //inserta a favoritos
         $sql_insert = "INSERT INTO favoritos (id_user, id_receta) VALUES (?, ?)";
         $stmt_insert = $conn->prepare($sql_insert);
         $stmt_insert->execute([$id_usuario, $id_receta]);
