@@ -6,8 +6,9 @@ if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];
     $conn = Cconexion::ConexionBD();
 
-    $sql = "SELECT vr.id_user, vr.id_receta, vr.calificacion, vr.comentario, vr.fecha_resena
+    $sql = "SELECT vr.id_user, vr.id_receta, vr.calificacion, vr.comentario, vr.fecha_resena, r.nombre_receta
             FROM vista_resenas vr
+            JOIN recetas r ON r.id_receta = vr.id_receta
             WHERE vr.email_usuario = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$email]);
@@ -49,7 +50,7 @@ if (isset($_SESSION['email'])) {
             margin-right : 10px;
         }
 
-         .btn-back {
+        .btn-back {
             color: #fff;
             background-color: #337ab7;
             display: inline-block;
@@ -61,10 +62,16 @@ if (isset($_SESSION['email'])) {
             background: #f3f3f3; 
             padding: 20px;
             border-radius: 10px;
-        }       
+        }
+
         label.col.control-label {
             margin-left: 10px;
         }
+        
+        .form-horizontal {
+            margin: 30px;
+        }
+
     </style>
 </head>
 
@@ -86,35 +93,31 @@ if (isset($_SESSION['email'])) {
                     $id_receta = $row['id_receta'];
                     $calificacion = $row['calificacion'];
                     $comentario = $row['comentario'];
-                    $fecha_resena = $row['fecha_resena']; ?>
+                    $fecha_resena = $row['fecha_resena'];
+                    $nombre_receta = $row['nombre_receta']; ?>
 
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="card">
+                            <h3 class="text-center my-3"><?php echo $nombre_receta?></h3>
                             <form class="form-horizontal">
                                 <div class="form-group">
                                     <label class="col control-label">Calificación</label>
-                                    <div class="col-sm-10">
-                                    <p class="form-control" readonly><?php echo htmlspecialchars($calificacion); ?></p>  
-                                    </div>
+                                    <p class="form-control text-center" readonly><?php echo htmlspecialchars($calificacion); ?></p>
                                 </div>
                                             
                                 <div class="form-group">
                                     <label class="col control-label">Comentario</label>
-                                    <div class="col-sm-10">
-                                    <p class="form-control" readonly><?php echo htmlspecialchars($comentario); ?></p>
-                                    </div>
+                                    <p class="form-control text-center" readonly><?php echo htmlspecialchars($comentario); ?></p>
                                 </div>
+
                                 <div class="form-group">
                                     <label class="col control-label">Fecha</label>
-                                    <div class="col-sm-10">
-                                        <p class="form-control" readonly><?php echo htmlspecialchars($fecha_resena); ?></p>
-                                    </div>
+                                    <p class="form-control text-center" readonly><?php echo htmlspecialchars($fecha_resena); ?></p>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-10">
-                                        <a href="editar_resena.php?id=<?php echo $id_receta; ?>" class="btn btn-primary">Editar</a>
-                                        <a href="eliminar_resena.php?id=<?php echo $id_receta; ?>" class="btn btn-danger">Eliminar</a>
-                                    </div>
+                                
+                                <div class="form-group text-center">
+                                    <a href="editar_resena.php?id=<?php echo $id_receta; ?>" class="btn btn-primary">Editar</a>
+                                    <a href="eliminar_resena.php?id=<?php echo $id_receta; ?>" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </form>            
                         </div>
