@@ -116,13 +116,13 @@ if (isset($_SESSION['email'])) {
             margin-right : 10px;
         }
 
-        .card-img-top {
-            object-fit: cover;
-        }
-
         .votar {
             height: 600px;
             object-fit: cover;           
+        }
+
+        .container {
+            margin-bottom: 20px;
         }
 
     </style>
