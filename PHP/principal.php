@@ -116,18 +116,8 @@ if (isset($_SESSION['email'])) {
             margin-right : 10px;
         }
 
-        .col-sm-6 {
-            padding: 20px;
-            border-radius: 10px;
-        }
-
         .card-img-top {
             object-fit: cover;
-        }
-
-        .col-md-4{
-            padding: 20px;
-            border-radius: 10px;
         }
 
         .votar {
