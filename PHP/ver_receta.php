@@ -5,7 +5,7 @@ $conn = Cconexion::ConexionBD();
 $id_receta = $_GET['id_receta'];
 $mensaje = $_GET['mensaje'];
 
-$sql_info_receta = "SELECT nombre_receta, tipo_platillo, tiempo_preparacion, etiquetas, instrucciones, ingredientes, url_imagen
+$sql_info_receta = "SELECT nombre_receta, promedio_calificaciones, tipo_platillo, tiempo_preparacion, etiquetas, instrucciones, ingredientes, url_imagen
                     FROM recetas
                     WHERE id_receta = ?";
 
@@ -15,28 +15,13 @@ $stmt_info_receta->execute([$id_receta]);
 if ($stmt_info_receta->rowCount() == 1) {
     $row_info_receta = $stmt_info_receta->fetch();
     $nombre_receta = $row_info_receta['nombre_receta'];
+    $promedio = $row_info_receta['promedio_calificaciones'];
     $tipo_platillo = $row_info_receta['tipo_platillo'];
     $tiempo_preparacion = $row_info_receta['tiempo_preparacion'];
     $etiquetas = $row_info_receta['etiquetas'];
     $instrucciones = $row_info_receta['instrucciones'];
     $ingredientes = $row_info_receta['ingredientes'];
     $url_imagen = $row_info_receta['url_imagen'];
-}
-
-$sql_promedio = "SELECT AVG(calificacion) AS promedio FROM resenas WHERE id_receta = ?";
-$stmt_promedio = $conn->prepare($sql_promedio);
-$stmt_promedio->execute([$id_receta]);
-
-if ($stmt_promedio->rowCount() > 0) {
-    // Obtener el promedio de las calificaciones
-    $row_promedio = $stmt_promedio->fetch();
-    $promedio = $row_promedio["promedio"];
-
-    $sql_update = "UPDATE recetas
-                    SET promedio_calificaciones = ?
-                    WHERE id_receta = ?";
-    $stmt_update = $conn->prepare($sql_update);
-    $stmt_update->execute([$promedio, $id_receta]);
 }
 
 ?>

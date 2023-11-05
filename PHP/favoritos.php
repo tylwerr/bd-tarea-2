@@ -92,11 +92,11 @@ if (isset($_SESSION['email'])) {
     <h2 class="text-center my-5">Tus recetas favoritas</h2>
 
     <?php if ($mensaje === "¡Todavía no has agregado recetas a favoritos!"): ?> 
-        <div class="alert alert-primary" role="alert">
+        <div class="alert alert-primary text-center" role="alert">
             <?php echo $mensaje; ?>
         </div>
     <?php elseif(isset($_GET['eliminado']) && $_GET['eliminado'] == true ): ?>
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger text-center" role="alert">
             <?php echo "Receta eliminada de tus favoritos" ?>
         </div>
     <?php endif; ?>

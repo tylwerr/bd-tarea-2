@@ -18,6 +18,7 @@ if (isset($_SESSION['email'])) {
     if ($stmt->rowCount() == 0) {
         $mensaje = "¡Todavía no has hecho reseñas!";
     }
+    
 } else {
     header("location: login.php");
     exit();
