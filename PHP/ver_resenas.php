@@ -140,7 +140,7 @@ if (isset($_SESSION['email'])) {
                             </div>
                                 
                             <div class="form-group text-center">
-                                <a href="editar_resena.php?id=<?php echo urlencode($id_receta);?>&id_usuario=<?php echo urldecode($id_usuario)?>" class="btn btn-primary">Editar</a>
+                                <a href="editar_resena.php?id_receta=<?php echo urlencode($id_receta);?>&id_usuario=<?php echo urldecode($id_usuario);?>&nombre_receta=<?php echo urldecode($nombre_receta)?>" class="btn btn-primary">Editar</a>
                                 <a href="eliminar_resena.php?id_receta=<?php echo urlencode($id_receta);?>&id_usuario=<?php echo urldecode($id_usuario)?>" class="btn btn-danger">Eliminar</a>
                             </div>
                         </form>            
