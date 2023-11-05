@@ -8,22 +8,15 @@ if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];
     $conn = Cconexion::ConexionBD();
 
-    $sql_usuario = "SELECT id, nombre_usuario FROM usuarios WHERE email = ?";
-    $stmt_usuario = $conn->prepare($sql_usuario);
-    $stmt_usuario->execute([$email]);
+    $sql_favoritos = "SELECT id, nombre_usuario, f.id_receta 
+                      FROM usuarios u
+                      JOIN favoritos f ON f.id_user = u.id
+                      WHERE email = ?";
+    $stmt_favoritos = $conn->prepare($sql_favoritos);
+    $stmt_favoritos->execute([$email]);
 
-    if ($stmt_usuario->rowCount() == 1) {
-        $row_usuario = $stmt_usuario->fetch();
-        $id_usuario = $row_usuario['id'];
-        $nombre_usuario = $row_usuario['nombre_usuario'];
-
-        $sql_favoritos = "SELECT id_receta FROM favoritos WHERE id_user = ?";
-        $stmt_favoritos = $conn->prepare($sql_favoritos);
-        $stmt_favoritos->execute([$id_usuario]);
-
-        if ($stmt_favoritos->rowCount() == 0) {
-            $mensaje = "¡Todavía no has agregado recetas a favoritos!";
-        }
+    if ($stmt_favoritos->rowCount() == 0) {
+        $mensaje = "¡Todavía no has agregado recetas a favoritos!";
     }
 
 } else {
@@ -106,6 +99,7 @@ if (isset($_SESSION['email'])) {
 
             <?php while ($row_favoritos = $stmt_favoritos->fetch(PDO::FETCH_ASSOC)) {
                 $id_receta = $row_favoritos['id_receta'];
+                $id_usuario = $row_favoritos['id'];
                 
                 $sql_receta = "SELECT * FROM recetas WHERE id_receta = ?";
                 $stmt_receta = $conn->prepare($sql_receta);
