@@ -2,7 +2,7 @@
 class Cconexion{
     public static function ConexionBD(){
         $host = 'localhost';
-        $dbname='prestigetravels';
+        $dbname='sabor usm';
         $username='root';
         $pasword='';
 
