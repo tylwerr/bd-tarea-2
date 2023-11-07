@@ -113,6 +113,7 @@ if (isset($_SESSION['email'])) {
                         <img src="<?php echo $receta['url_imagen']; ?>" class="card-img-top img-fluid" alt="<?php echo $receta['nombre_receta']; ?>">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo $receta['nombre_receta']; ?></h5>
+                            <p class="card-text"><?php echo "Promedio de calificaciones: " . number_format($receta['promedio_calificaciones'], 2); ?> </p>
                             <a href="ver_receta.php?id_receta=<?php echo urlencode($id_receta);?>&mensaje=" class="btn btn-primary">Ver</a>
                             <a href="eliminar_favorito.php?id_receta=<?php echo urlencode($id_receta);?>&id_usuario=<?php echo urldecode($id_usuario)?>" class="btn delete">Eliminar</a>
                         </div>
