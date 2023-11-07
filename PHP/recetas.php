@@ -7,6 +7,7 @@ if (isset($_GET['orden'])){
     $orden = $_GET['orden'];
 } else {
     $orden = 'ascendente';
+    $top = 'mejores';
 }
 if (isset($_GET['q'])) {
     $consulta = $_GET['q'];
