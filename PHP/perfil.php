@@ -78,12 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border-bottom-left-radius: 3px;
             padding: 10px;
         }
-        body {
-            font-family: Arial, sans-serif; 
-            background-color: #f3f3f3;
-            margin: 0;
-            padding: 0;
-        }
 
         .top-bar {
             background-color: #074469;

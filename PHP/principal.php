@@ -10,13 +10,6 @@ include("top_bar.php");
     <title>Página Principal</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif; 
-            background-color: #f3f3f3;
-            margin: 0;
-            padding: 0;
-        }
-
         .votar {
             height: 300px;
             object-fit: cover;           
