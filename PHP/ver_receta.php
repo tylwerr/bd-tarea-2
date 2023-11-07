@@ -61,6 +61,14 @@ if ($stmt_info_receta->rowCount() == 1) {
             font-size: 14px;
         }
 
+        .btn-resena {
+            color: #fff;
+            background-color: #BA4A00 ;
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
         .alert {
             width: 50%;
             margin: auto;
@@ -102,6 +110,7 @@ if ($stmt_info_receta->rowCount() == 1) {
                     <div style="margin: 10px;">
                         <a href="valorar.php?id_receta=<?php echo $id_receta?>" class="btn btn-primary">Valorar</a>
                         <button type="submit" class="btn btn-favorite" name="agregar_favorito">Añadir a favoritos</button>
+                        <a href="resenas_usuarios.php?id_receta=<?php echo $id_receta?>" class="btn btn-resena">Ver reseñas</a>
                     </div>
                 </form>
             </div>
