@@ -1,6 +1,5 @@
 <?php
-include_once("config.php");
-session_start();
+include("top_bar.php");
 $id_receta = $_GET['id_receta'];
 $mensaje = ""; 
 $comentario = "";
@@ -9,8 +8,6 @@ $alerta_buena = false;
 $alerta_mala = false;
 
 if (isset($_SESSION['email'])) {
-    $email = $_SESSION['email'];
-    $conn = Cconexion::ConexionBD();
 
     // uso de JOIN ahorra dos consultas
     $sql = "SELECT user.id AS id_usuario, r.nombre_receta 
@@ -70,32 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reseña</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <style>
-        body {
-            background-image: linear-gradient(rgba(243, 243, 243, 0.5), rgba(243, 243, 243, 0.5));
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-color: #f3f3f3;
-        }
-
-        .top-bar {
-            background-color: #074469;
-            color: #fff;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .right-image {
-            width: 300px;
-            height: 60px;
-            margin-right : 10px;
-        }
-
         .btn-primary {
             color: #fff;
             background-color: #337ab7;
@@ -137,9 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <div class="top-bar">
-        <img class="right-image" src="//aula.usm.cl/pluginfile.php/1/theme_moove/logo/1697696553/marca-color.png" alt="USM04">
-    </div>
     <div style="margin: 10px;">
         <a href="ver_receta.php?id_receta=<?php echo $id_receta?>&mensaje=" class="btn btn-primary">Atrás</a>
     </div>
@@ -188,7 +158,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input class="btn btn-primary send" type="submit" value="Enviar reseña">
     </form>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
 </body>
 </html>
