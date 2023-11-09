@@ -25,9 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nombre_usuario = $row['nombre_usuario'];
         $_SESSION['email'] = $email;
         $_SESSION['nombre_usuario'] = $nombre_usuario;
-        $updateSql = "UPDATE usuarios SET ultima_sesion = NOW() WHERE email = ?";
-        $updateStmt = $conn->prepare($updateSql);
-        $updateStmt->execute([$email]);
+
         header("location: principal.php");
     } else {
         $mensaje= "Credenciales incorrectas. Inténtalo de nuevo.";
