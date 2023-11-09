@@ -47,6 +47,17 @@ include("top_bar.php");
                     </div>
                 </div>
             </div>
+
+            <div class="col mt-5">
+                <div class="card">
+                    <img src="../IMG/top.jpg" class="card-img-top votar img-fluid" alt="Top">
+                    <div class="card-body">
+                        <h5 class="card-title">TOP RECETAS</h5>
+                        <p class="card-text">Pincha para saber cuales son las 10 mejores y peores recetas según los usuarios</p>
+                        <a href="top_recetas.php" class="btn btn-primary">Ver</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
