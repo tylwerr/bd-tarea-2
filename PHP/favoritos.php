@@ -34,7 +34,6 @@ if (isset($_SESSION['email'])) {
 
     <style>
         .col-md-4 {
-            background: rgba(255, 255, 255, 0.8); 
             padding: 20px;
             border-radius: 10px;
         }
