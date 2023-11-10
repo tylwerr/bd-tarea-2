@@ -50,6 +50,11 @@ if ($orden === "descendente"){
             padding: 5px 10px;
             font-size: 14px;
         }
+        
+        .actualizar {
+            color: #fff;
+            background-color: #A93226;
+        }
 
         .col-md-4 {
             padding: 20px;
@@ -91,7 +96,7 @@ if ($orden === "descendente"){
                     <option value="descendente">TOP 10 MEJORES</option>
                     <option value="ascendente">TOP 10 PEORES</option>
                 </select>
-                <button type="submit" class="btn btn-primary mt-2">Actualizar</button>
+                <button type="submit" class="btn btn-primary actualizar mt-2">Actualizar</button>
             </div>
         </form>
 
