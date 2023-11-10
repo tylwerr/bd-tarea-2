@@ -43,7 +43,7 @@ include("top_bar.php");
                     <div class="card-body">
                         <h5 class="card-title">Votaciones de la semana</h5>
                         <p class="card-text">¡Ahora puedes escoger el plato de fondo de este viernes!</p>
-                        <a href="votar.php" class="btn btn-primary">Votar</a>
+                        <a href="votacion_semanal.php" class="btn btn-primary">Votar</a>
                     </div>
                 </div>
             </div>
