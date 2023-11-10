@@ -61,12 +61,15 @@ if (isset($_GET['q'])) {
         <a href="principal.php" class="btn btn-back">Atrás</a>
     </div>
     <h2 class="text-center my-5">Recetas</h2>
+
     <div class="container">
+
         <form action="recetas.php" method="GET" class="mb-4">
             <div class="input-group">
                 <input type="text" class="form-control" name="q" placeholder="Buscar recetas/ingrediente">
                 <button type="submit" class="btn btn-primary">Buscar</button>
             </div>
+
             <div class="mt-2">
                 <label for="orden" class="form-label">Ordenar por:</label>
                 <select name="orden" class="form-select" id="orden" style="max-width: 200px">
@@ -75,6 +78,7 @@ if (isset($_GET['q'])) {
                     <option value="descendente">Calificacion (De mayor a menor)</option>
                 </select>
             </div>
+
             <div class="mt-2">
                 <button type="button" class="btn btn-secondary" id="mostrarFiltro">Filtro de alimentos</button>
                 <div id="filtroDropdown" style="display: none;">
@@ -96,7 +100,9 @@ if (isset($_GET['q'])) {
                     </select>
                 </div>
             </div>
+            
         </form>
+
         <div class="row">
             <?php while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
             <div class="col-md-4">
@@ -110,7 +116,9 @@ if (isset($_GET['q'])) {
             </div>
             <?php } ?>
         </div>
+
     </div>
+
     <script>   
         const mostrarFiltrosButton = document.getElementById('mostrarFiltro');
         const filtroDropdown = document.getElementById('filtroDropdown');
