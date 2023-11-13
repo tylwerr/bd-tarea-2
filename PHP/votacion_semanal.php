@@ -78,6 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id_receta'])) {
             color: #fff;
             border: none;
             cursor: pointer;
+            margin-bottom: 10px;
         }
 
         .seleccionar-btn.selected {
@@ -95,41 +96,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id_receta'])) {
     <h2 class="text-center my-5">Votación Semanal</h2>
 
     <div class="container">
-        <form action="votacion_semanal.php" method="POST">
-            <div class="row">
-                <?php foreach ($recetas as $row) {
+        <div class="row">
+            <?php foreach ($recetas as $row) {
 
-                    $sql_cantidad = "SELECT COUNT(id_voto) as cantidad_votos
-                                    FROM votos
-                                    WHERE id_receta = ?";
-                    $stmt_cantidad = $conn->prepare($sql_cantidad);
-                    $stmt_cantidad->execute([$row['id_receta']]);
-                    $row_cantidad = $stmt_cantidad->fetch();
+                $sql_cantidad = "SELECT COUNT(id_voto) as cantidad_votos
+                                FROM votos
+                                WHERE id_receta = ?";
+                $stmt_cantidad = $conn->prepare($sql_cantidad);
+                $stmt_cantidad->execute([$row['id_receta']]);
+                $row_cantidad = $stmt_cantidad->fetch();
 
-                    if (isset($row_cantidad['cantidad_votos'])) {
-                        $cantidad_votos = $row_cantidad['cantidad_votos'];
-                    } else {
-                        $cantidad_votos = 0;
-                    } ?>
+                if (isset($row_cantidad['cantidad_votos'])) {
+                    $cantidad_votos = $row_cantidad['cantidad_votos'];
+                } else {
+                    $cantidad_votos = 0;
+                } ?>
 
-                    <div class="col-md-4">
-                        <div class="card">
-
-                            <img src="<?php echo $row['url_imagen']; ?>" class="card-img-top img-fluid" alt="<?php echo $row['nombre_receta']; ?>">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $row['nombre_receta']; ?></h5>
-                                <p class='card-text'><small class='text-body-secondary'>Cantidad de votos: <?php echo $cantidad_votos; ?></small></p>
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="<?php echo $row['url_imagen']; ?>" class="card-img-top img-fluid" alt="<?php echo $row['nombre_receta']; ?>">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $row['nombre_receta']; ?></h5>
+                            <p class='card-text'><small class='text-body-secondary'>Cantidad de votos: <?php echo $cantidad_votos; ?></small></p>
+                            <form action="votacion_semanal.php" method="POST">
                                 <input type="hidden" name="id_receta" value="<?php echo $row['id_receta']; ?>">
-                                <button type="submit" class="btn btn-primary seleccionar-btn" id="<?php echo $row['id_receta']; ?>" name="votar">Seleccionar</button>
-                                <a href="ver_receta.php?id_receta=<?php echo urlencode($row['id_receta']);?>&mensaje=&ocultar_calificacion=true &ocultar_botones=true" class="btn btn-primary">Ver</a>
-                            </div>
-
+                                <button type="submit" class="btn btn-primary seleccionar-btn" id="boton_<?php echo $row['id_receta']; ?>">Seleccionar</button>
+                            </form>
+                            <a href="ver_receta.php?id_receta=<?php echo urlencode($row['id_receta']);?>&mensaje=&ocultar_calificacion=true &ocultar_botones=true" class="btn btn-primary">Ver</a>
                         </div>
                     </div>
-                <?php } ?>
-            </div>
+                </div>
 
-        </form>
+            <?php } ?>
+        </div>
     </div>
 
     <script>
