@@ -22,6 +22,15 @@ if ($stmt_info_receta->rowCount() == 1) {
     $url_imagen = $row_info_receta['url_imagen'];
 }
 
+$ocultarBotones = isset($_GET['ocultar_botones']) && $_GET['ocultar_botones'] === 'true';
+if (!isset($_GET['ocultar_botones'])) {
+    $ocultarBotones = false;
+}
+
+$ocultarCalificacion = isset($_GET['ocultar_calificacion']) && $_GET['ocultar_calificacion'] === 'true';
+if (!isset($_GET['ocultar_calificacion'])) {
+    $ocultarCalificacion = false;
+}
 ?>
 
 <!DOCTYPE html>
@@ -99,17 +108,28 @@ if ($stmt_info_receta->rowCount() == 1) {
                     "Tiempo de preparación: " . $tiempo_preparacion . "<br>" .
                     "Etiquetas: " . $etiquetas . "<br>" .
                     "Ingredientes: " . $ingredientes . "<br>" .
-                    "Instrucciones: " . $instrucciones; ?></p>
-                    <p class="card-text"><small class="text-body-secondary"><?php echo "Promedio de calificaciones: " . number_format($promedio, 2); ?></small></p>
+                    "Instrucciones: " . $instrucciones; 
+                    
+                    if (!$ocultarCalificacion ){
+                        echo "<p class='card-text'><small class='text-body-secondary'>" . "Promedio de calificaciones: " . number_format($promedio, 2) . "</small></p>";
+                    }
+                    ?></p>
                 </div>
-                <form method="POST" action="agregar_favorito.php">
-                    <input type="hidden" name="id_receta" value="<?php echo $id_receta; ?>">
-                    <div style="margin: 10px;">
-                        <a href="valorar.php?id_receta=<?php echo $id_receta?>" class="btn btn-primary">Valorar</a>
-                        <button type="submit" class="btn btn-favorite" name="agregar_favorito">Añadir a favoritos</button>
-                        <a href="resenas_usuarios.php?id_receta=<?php echo $id_receta?>" class="btn btn-resena">Ver reseñas</a>
-                    </div>
-                </form>
+                <?php
+                
+                if (!$ocultarBotones === true) {
+                ?>
+                    <form method="POST" action="agregar_favorito.php">
+                        <input type="hidden" name="id_receta" value="<?php echo $id_receta; ?>">
+                        <div style="margin: 10px;">
+                            <a href="valorar.php?id_receta=<?php echo $id_receta?>" class="btn btn-primary">Valorar</a>
+                            <button type="submit" class="btn btn-favorite" name="agregar_favorito">Añadir a favoritos</button>
+                            <a href="resenas_usuarios.php?id_receta=<?php echo $id_receta?>" class="btn btn-resena">Ver reseñas</a>
+                        </div>
+                    </form>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </div>
