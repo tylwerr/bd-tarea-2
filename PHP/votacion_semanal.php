@@ -1,8 +1,50 @@
 <?php 
 include("top_bar.php");
 
-$sql = "SELECT * FROM recetas WHERE tipo_platillo = 'Plato de fondo' ORDER BY RAND() LIMIT 3 ";
-$resultado = $conn->query($sql);
+
+if (!isset($_SESSION['recetas'])) {
+    $sql = "SELECT *, COUNT(v.id_voto) AS cantidad_votos 
+            FROM recetas r
+            JOIN votos v ON v.id_receta = r.id_receta
+            WHERE tipo_platillo = 'Plato de fondo' 
+            ORDER BY RAND() LIMIT 3 ";
+    $resultado = $conn->query($sql);
+    $_SESSION['recetas'] = $resultado->fetchAll(PDO::FETCH_ASSOC);
+}
+
+$recetas = $_SESSION['recetas'];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id_receta = $_POST['id_receta'];
+
+    $sql_voto = "SELECT COUNT(*) AS num_votos, id_voto
+                 FROM votos 
+                 WHERE id_user = ? AND id_receta = ?";
+    $stmt_voto = $conn->prepare($sql_voto);
+    $stmt_voto->execute([$id_usuario, $id_receta]);
+    $row_voto = $stmt_voto->fetch(PDO::FETCH_ASSOC);
+    $existe_voto = $row_voto['num_votos'];
+    
+    if ($existe_voto == 0){
+        $sql_insert = "INSERT INTO votos (id_user,id_receta) VALUES (?, ?)";
+        $stmt_insert = $conn->prepare($sql_insert);
+        $stmt_insert->execute([$id_usuario,$id_receta]);
+
+    } else{
+        $id_voto = $row_voto['id_voto'];
+        $sql_update = "UPDATE votos
+                       SET id_receta = ?
+                       WHERE id_user = ? AND id_voto = ?";
+        $stmt_update = $conn->prepare($sql_update);
+        $stmt_update->execute([$id_receta,$id_usuario,$id_voto]);
+    }
+
+}
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -61,14 +103,21 @@ $resultado = $conn->query($sql);
     <div class="container">
         <form action="votacion_semanal.php" method="POST">
             <div class="row">
-                <?php while ($row = $resultado->fetch(PDO::FETCH_ASSOC)) { ?>
+                <?php foreach ($recetas as $row) {
+                    if (isset($row['cantidad_votos'])) {
+                        $cantidad_votos = $row['cantidad_votos'];
+                    } else {
+                        $cantidad_votos = 0;
+                    } ?>
                     <div class="col-md-4">
                         <div class="card">
                             <img src="<?php echo $row['url_imagen']; ?>" class="card-img-top img-fluid" alt="<?php echo $row['nombre_receta']; ?>">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $row['nombre_receta']; ?></h5>
-                                <button type="button" class="btn btn-primary seleccionar-btn" data-id="<?php echo $row['id_receta']; ?>">Seleccionar</button>
+                                <p class='card-text'><small class='text-body-secondary'>Cantidad de votos: <?php echo $cantidad_votos; ?></small></p>
+                                <button type="button" class="btn btn-primary seleccionar-btn" id="<?php echo $row['id_receta']; ?>">Seleccionar</button>
                                 <a href="ver_receta.php?id_receta=<?php echo urlencode($row['id_receta']);?>&mensaje=&ocultar_calificacion=true &ocultar_botones=true" class="btn btn-primary">Ver</a>
+                                
                             </div>
                         </div>
                     </div>
@@ -76,7 +125,7 @@ $resultado = $conn->query($sql);
             </div>
 
             <div class="mt-3 text-center">
-                <button type="submit" class="btn votar btn-primary">Votar</button>
+                <input type="submit" value="Enviar voto" class="btn votar btn-primary">
             </div>
         </form>
     </div>

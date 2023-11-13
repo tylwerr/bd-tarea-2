@@ -4,13 +4,14 @@ session_start();
 if (isset($_SESSION['email'])) {
     $email = $_SESSION['email'];
     $conn = Cconexion::ConexionBD();
-    $sql = "SELECT nombre_usuario FROM usuarios WHERE email = ?";
+    $sql = "SELECT id,nombre_usuario FROM usuarios WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->execute([$email]);
     
     if ($stmt->rowCount() == 1) {
         $row = $stmt->fetch();
         $nombre_usuario = $row['nombre_usuario'];
+        $id_usuario = $row['id'];
         $mensaje = "¡Hola, $nombre_usuario!";
     }
 } else {
