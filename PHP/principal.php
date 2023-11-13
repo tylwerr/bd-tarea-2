@@ -10,9 +10,12 @@ include("top_bar.php");
     <title>Página Principal</title>
 
     <style>
-        .votar {
-            max-height: 100%;
-            width: 100%;
+        .card {
+            height: 400px;
+        }
+
+        .card-img-top {
+            height: 100%;
             object-fit: cover;
         }
 
@@ -21,7 +24,7 @@ include("top_bar.php");
         }
 
         .container .row .col {
-            padding: 15px;
+            padding: 20px;
         }
 
     </style>
@@ -29,11 +32,11 @@ include("top_bar.php");
 
 <body>
 
-    <div class="container mx-auto">
-        <div class="row align-items-stretch"> 
+    <div class="container">
+        <div class="row"> 
             <div class="col mt-5">
                 <div class="card">
-                    <img src="../IMG/resenas.png" class="card-img-top votar img-fluid" alt="Foto recetas">
+                    <img src="../IMG/resenas.png" class="card-img-top img-fluid" alt="Foto recetas">
                     <div class="card-body">
                         <h5 class="card-title">Recetas del casino</h5>
                         <p class="card-text">Todas las recetas de SABOR USM ¡ya disponibles!</p>
@@ -44,7 +47,7 @@ include("top_bar.php");
 
             <div class="col mt-5">
                 <div class="card">
-                    <img src="../IMG/votaciones.png" class="card-img-top votar img-fluid" alt="Votaciones">
+                    <img src="../IMG/votaciones.png" class="card-img-top img-fluid" alt="Votaciones">
                     <div class="card-body">
                         <h5 class="card-title">Votaciones de la semana</h5>
                         <p class="card-text">¡Ahora puedes escoger el plato de fondo de este viernes!</p>
@@ -55,7 +58,7 @@ include("top_bar.php");
 
             <div class="col mt-5">
                 <div class="card">
-                    <img src="../IMG/top.jpg" class="card-img-top votar img-fluid" alt="Top">
+                    <img src="../IMG/top.jpg" class="card-img-top img-fluid" alt="Top">
                     <div class="card-body">
                         <h5 class="card-title">TOP RECETAS</h5>
                         <p class="card-text">Pincha para saber cuales son las 10 mejores y peores recetas según los usuarios</p>
