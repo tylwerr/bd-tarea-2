@@ -11,12 +11,17 @@ include("top_bar.php");
 
     <style>
         .votar {
-            height: 300px;
-            object-fit: cover;           
+            max-height: 100%;
+            width: 100%;
+            object-fit: cover;
         }
 
         .container {
             margin-bottom: 20px;
+        }
+
+        .container .row .col {
+            padding: 15px;
         }
 
     </style>
@@ -24,8 +29,8 @@ include("top_bar.php");
 
 <body>
 
-    <div class="container">
-        <div class="row align-items-stretch">
+    <div class="container mx-auto">
+        <div class="row align-items-stretch"> 
             <div class="col mt-5">
                 <div class="card">
                     <img src="../IMG/resenas.png" class="card-img-top votar img-fluid" alt="Foto recetas">
