@@ -31,6 +31,19 @@ $resultado = $conn->query($sql);
             font-size: 14px;
         }
         
+        .seleccionar-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .seleccionar-btn.selected {
+            background-color: #e74c3c;
+        }
+
     </style>
 </head>
 
@@ -50,7 +63,7 @@ $resultado = $conn->query($sql);
                             <img src="<?php echo $row['url_imagen']; ?>" class="card-img-top img-fluid" alt="<?php echo $row['nombre_receta']; ?>">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $row['nombre_receta']; ?></h5>
-                                <input type="radio" name="opcion_voto" value="<?php echo $row['id_receta']; ?>" required>
+                                <button type="button" class="btn btn-primary seleccionar-btn" data-id="<?php echo $row['id_receta']; ?>">Seleccionar</button>
                                 <a href="ver_receta.php?id_receta=<?php echo urlencode($row['id_receta']);?>&mensaje=&ocultar_calificacion=true &ocultar_botones=true" class="btn btn-primary">Ver</a>
                             </div>
                         </div>
@@ -63,6 +76,19 @@ $resultado = $conn->query($sql);
             </div>
         </form>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var buttons = document.querySelectorAll('.seleccionar-btn');
 
+            buttons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    buttons.forEach(function(btn) {
+                        btn.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
