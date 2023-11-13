@@ -30,6 +30,10 @@ $resultado = $conn->query($sql);
             padding: 5px 10px;
             font-size: 14px;
         }
+
+        .votar {
+            margin-bottom: 15px;
+        }
         
         .seleccionar-btn {
             padding: 8px 16px;
@@ -72,10 +76,11 @@ $resultado = $conn->query($sql);
             </div>
 
             <div class="mt-3 text-center">
-                <button type="submit" class="btn btn-primary">Votar</button>
+                <button type="submit" class="btn votar btn-primary">Votar</button>
             </div>
         </form>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var buttons = document.querySelectorAll('.seleccionar-btn');
