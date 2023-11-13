@@ -14,7 +14,7 @@ if (!isset($_SESSION['recetas'])) {
 
 $recetas = $_SESSION['recetas'];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id_receta'])) {
     $id_receta = $_POST['id_receta'];
 
     $sql_voto = "SELECT COUNT(*) AS num_votos, id_voto
@@ -109,18 +109,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     } else {
                         $cantidad_votos = 0;
                     } ?>
+
                     <div class="col-md-4">
                         <div class="card">
+
                             <img src="<?php echo $row['url_imagen']; ?>" class="card-img-top img-fluid" alt="<?php echo $row['nombre_receta']; ?>">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $row['nombre_receta']; ?></h5>
                                 <p class='card-text'><small class='text-body-secondary'>Cantidad de votos: <?php echo $cantidad_votos; ?></small></p>
-                                <button type="button" class="btn btn-primary seleccionar-btn" id="<?php echo $row['id_receta']; ?>">Seleccionar</button>
+                                <input type="hidden" name="id_receta" value="<?php echo $id_receta; ?>">
+                                <button type="button" class="btn btn-primary seleccionar-btn" id="<?php echo $row['id_receta']; ?>" name="votar">Seleccionar</button>
                                 <a href="ver_receta.php?id_receta=<?php echo urlencode($row['id_receta']);?>&mensaje=&ocultar_calificacion=true &ocultar_botones=true" class="btn btn-primary">Ver</a>
-                                
                             </div>
+
                         </div>
                     </div>
+
                 <?php } ?>
             </div>
 
