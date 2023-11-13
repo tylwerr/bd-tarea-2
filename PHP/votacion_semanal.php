@@ -3,9 +3,8 @@ include("top_bar.php");
 
 
 if (!isset($_SESSION['recetas'])) {
-    $sql = "SELECT *, COUNT(v.id_voto) AS cantidad_votos 
-            FROM recetas r
-            JOIN votos v ON v.id_receta = r.id_receta
+    $sql = "SELECT * 
+            FROM recetas
             WHERE tipo_platillo = 'Plato de fondo' 
             ORDER BY RAND() LIMIT 3 ";
     $resultado = $conn->query($sql);
@@ -17,12 +16,12 @@ $recetas = $_SESSION['recetas'];
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id_receta'])) {
     $id_receta = $_POST['id_receta'];
 
-    $sql_voto = "SELECT COUNT(*) AS num_votos, id_voto
+    $sql_voto = "SELECT COUNT(*) AS num_votos
                  FROM votos 
-                 WHERE id_user = ? AND id_receta = ?";
+                 WHERE id_user = ?";
     $stmt_voto = $conn->prepare($sql_voto);
-    $stmt_voto->execute([$id_usuario, $id_receta]);
-    $row_voto = $stmt_voto->fetch(PDO::FETCH_ASSOC);
+    $stmt_voto->execute([$id_usuario]);
+    $row_voto = $stmt_voto->fetch();
     $existe_voto = $row_voto['num_votos'];
     
     if ($existe_voto == 0){
@@ -30,20 +29,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id_receta'])) {
         $stmt_insert = $conn->prepare($sql_insert);
         $stmt_insert->execute([$id_usuario,$id_receta]);
 
-    } else{
-        $id_voto = $row_voto['id_voto'];
+    } elseif ($existe_voto == 1){
         $sql_update = "UPDATE votos
                        SET id_receta = ?
-                       WHERE id_user = ? AND id_voto = ?";
+                       WHERE id_user = ?";
         $stmt_update = $conn->prepare($sql_update);
-        $stmt_update->execute([$id_receta,$id_usuario,$id_voto]);
+        $stmt_update->execute([$id_receta,$id_usuario]);
     }
 
 }
-
-
-
-
 
 ?>
 
@@ -104,8 +98,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id_receta'])) {
         <form action="votacion_semanal.php" method="POST">
             <div class="row">
                 <?php foreach ($recetas as $row) {
-                    if (isset($row['cantidad_votos'])) {
-                        $cantidad_votos = $row['cantidad_votos'];
+
+                    $sql_cantidad = "SELECT COUNT(id_voto) as cantidad_votos
+                                    FROM votos
+                                    WHERE id_receta = ?";
+                    $stmt_cantidad = $conn->prepare($sql_cantidad);
+                    $stmt_cantidad->execute([$row['id_receta']]);
+                    $row_cantidad = $stmt_cantidad->fetch();
+
+                    if (isset($row_cantidad['cantidad_votos'])) {
+                        $cantidad_votos = $row_cantidad['cantidad_votos'];
                     } else {
                         $cantidad_votos = 0;
                     } ?>
@@ -117,20 +119,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['id_receta'])) {
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $row['nombre_receta']; ?></h5>
                                 <p class='card-text'><small class='text-body-secondary'>Cantidad de votos: <?php echo $cantidad_votos; ?></small></p>
-                                <input type="hidden" name="id_receta" value="<?php echo $id_receta; ?>">
-                                <button type="button" class="btn btn-primary seleccionar-btn" id="<?php echo $row['id_receta']; ?>" name="votar">Seleccionar</button>
+                                <input type="hidden" name="id_receta" value="<?php echo $row['id_receta']; ?>">
+                                <button type="submit" class="btn btn-primary seleccionar-btn" id="<?php echo $row['id_receta']; ?>" name="votar">Seleccionar</button>
                                 <a href="ver_receta.php?id_receta=<?php echo urlencode($row['id_receta']);?>&mensaje=&ocultar_calificacion=true &ocultar_botones=true" class="btn btn-primary">Ver</a>
                             </div>
 
                         </div>
                     </div>
-
                 <?php } ?>
             </div>
 
-            <div class="mt-3 text-center">
-                <input type="submit" value="Enviar voto" class="btn votar btn-primary">
-            </div>
         </form>
     </div>
 
