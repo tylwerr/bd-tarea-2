@@ -1,6 +1,5 @@
 <?php
 include_once("config.php");
-include_once("boton_volver.php");
 
 // Verificar si el usuario ya ha iniciado sesión
 session_start();
@@ -59,6 +58,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
+    <div style="margin: 10px;">
+        <a href="index.php" class="btn btn-primary">Atrás</a>
+    </div>
     <div class="center-container">
     <div class="form-container">
         <form method="POST" action="login.php">

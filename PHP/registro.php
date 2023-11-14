@@ -1,6 +1,6 @@
 <?php
 include_once("config.php");
-include_once("boton_volver.php");
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
    
@@ -38,6 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </head>
 <body>
+    <div style="margin: 10px;">
+        <a href="login.php" class="btn btn-primary">Atrás</a>
+    </div>
     <form class="col-4 p-5" method="POST" action="registro.php">
         <h2 class="text-center text-secondary">Registro de Usuario</h2>
         <div class="mb-3">
