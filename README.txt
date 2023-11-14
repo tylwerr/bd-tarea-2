@@ -29,6 +29,9 @@ Consideraciones:
 	- En el apartado de recetas del casino, si se quiere hacer algun tipo de filtro, se debera seleccionar el filtro deseado y apretar en el boton de buscar para que se ejecute la busqueda.
 
 	- Si se desea eliminar la cuenta, se eliminaran todos los datos relacionados con el usuario debido a la implementacion de la base de datos.
+
+	- Si el usuario quiere editar sus datos, se asume que quiere cambiar todos sus datos, tanto el correo como su nombre y la cantidad de almuerzos.
+
 Detalles de las herramientas usadas:
 	- Sistema Operativo (SO):
 		Edición	Windows 10 Home Single Language
