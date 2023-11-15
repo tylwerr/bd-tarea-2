@@ -40,6 +40,8 @@ Consideraciones:
 
 	- El archivo top_bar.php ademas de incluir la barra donde se ve el perfil, incluye otras lineas de codigo que se repetian en los demas archivos. Esto para ahorrar lineas y mejor orden.
 
+	- En las recetas, el orden predefinido de calificacion es de menor a mayor.
+
 Detalles de las herramientas usadas:
 	- Sistema Operativo (SO):
 		Edición	Windows 10 Home Single Language
@@ -49,3 +51,4 @@ Detalles de las herramientas usadas:
 
 	- XAMPP v3.3.0	
 	- MySQL==8.0.34
+	- PHP == 8.2.11
