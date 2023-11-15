@@ -1,7 +1,6 @@
 <?php 
 include("top_bar.php");
 
-
 if (!isset($_SESSION['recetas'])) {
     $sql = "SELECT * 
             FROM recetas

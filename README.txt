@@ -20,9 +20,9 @@ Consideraciones:
 
 	- Para una mejor implementacion en la base de datos, se crearon tanto llaves primarias como llaves foraneas, ademas de eliminacion en cascada para un funcionamiento correcto.
 
-	- Al momento del registro de la pagina, se asume que el usuario solamente se registrará una unica vez y las siguientes veces solamente iniciara sesion.
+	- Al momento del registro de la pagina, se asume que el usuario solamente se registrará una unica vez y las siguientes veces solamente iniciara sesion. Ademas de que debera poner la cantidad de almuerzos manualmente.
 
-	- En la pagina principal, si el usuario desea ir al apartado de sus alimentos favoritos, puede ir tanto en el sub-menu que aparecera al momento de precionar su nombre, o llendo a perfil y luego llendo a favoritos desde el mismo perfil.
+	- En la pagina principal, si el usuario desea ir al apartado de sus alimentos favoritos, puede ir tanto en el sub-menu que aparecera al momento de presionar su nombre, o dirigiendose al perfil y luego a favoritos desde el mismo perfil.
 
 	- Las votaciones semanales toma 3 comidas del estilo "Plato de fondo" que son completamente al azar, pero no se actualizaran por motivos de implementacion, ya que no se actualizan los viernes a las 3 de la tarde como se menciona en el enunciado de la tarea.
 
@@ -32,13 +32,20 @@ Consideraciones:
 
 	- Si el usuario quiere editar sus datos, se asume que quiere cambiar todos sus datos, tanto el correo como su nombre y la cantidad de almuerzos.
 
+	- Se implemento una view, trigger y procedimiento almacenado mediante el diseñador en phpmyadmin, esto se encontrara dentro de la base de datos exportada.
+
+	- Para editar las resenas hechas por el usuario, este debera ir a su perfil y de ahi buscar la que quiere cambiar (OJO, se actualizara como la resena mas reciente).
+
+	- Los botones atras redirigen a una pagina y no se usa el href="javascript:history.back()", ya que generaba un bucle en ciertos casos. 
+
+	- El archivo top_bar.php ademas de incluir la barra donde se ve el perfil, incluye otras lineas de codigo que se repetian en los demas archivos. Esto para ahorrar lineas y mejor orden.
+
 Detalles de las herramientas usadas:
 	- Sistema Operativo (SO):
 		Edición	Windows 10 Home Single Language
 		Versión	22H2
 		Compilación del sistema operativo	19045.3324
 		Experiencia	Windows Feature Experience Pack 1000.19041.1000.0
-	- XAMPP v3.3.0
 
-	- Librerias:
-		MySQL==8.0.34
+	- XAMPP v3.3.0	
+	- MySQL==8.0.34
