@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div style="margin: 10px;">
-        <a href="login.php" class="btn btn-primary">Atrás</a>
+        <a href="index.php" class="btn btn-primary">Atrás</a>
     </div>
     <form class="col-4 p-5" method="POST" action="registro.php">
         <h2 class="text-center text-secondary">Registro de Usuario</h2>
