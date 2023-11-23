@@ -1,9 +1,7 @@
 Datos personales:
-	- Nombre: Daniel Rodrigo Maturana Cristino
-	- ROL USM: 202173575-5
+	- Nombre: Daniel Maturana
 
-   	- Nombre: Carlos Andrés Arévalo Guajardo
-    - ROL USM: 202173501-1 
+   	- Nombre: Carlos Arévalo
 
 Detalles de uso del programa:
 	
